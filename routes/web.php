@@ -23,6 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', 'App\Http\Controllers\DestinationController@landingPage')->name('landing');
+Route::get('/', 'App\Http\Controllers\HomepageController@index')->name('hompage');
 
-Route::get('/explore', 'App\Http\Controllers\DestinationController@index')->name('explore.index');
+Route::get('/blog', 'App\Http\Controllers\BlogController@index')->name('blog.index');

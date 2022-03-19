@@ -9,7 +9,7 @@
         <div class="container-fluid py-5 text-dark" style="height: 50vh">
         <h1 class="display-5 fw-bold">Travel Agency</h1>
         <p class="col-md-8 fs-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et quasi eius voluptates suscipit ullam corporis ea quaerat laborum? Unde provident cumque explicabo qui aut, sequi veritatis tempore officiis nihil aliquid.</p>
-        <a href="/explore" class="btn btn-primary btn-lg" role="button">Explore Destination</a>
+        <a href="/blog" class="btn btn-primary btn-lg" role="button">Explore Destination</a>
         </div>
     </div>
 
@@ -69,7 +69,7 @@
 
         <div class="d-flex justify-content-center p-3 mt-2">
             <div>
-                <a href="/explore" class="btn btn-primary btn-block">Explore More</a>
+                <a href="/blog" class="btn btn-primary btn-block">Explore More</a>
             </div>
         </div>
 

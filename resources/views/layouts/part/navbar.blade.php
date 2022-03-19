@@ -12,7 +12,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav justify-content-end">
                   <li class="nav-item">
-                    <a class="nav-link" href="/explore">Destination</a>
+                    <a class="nav-link" href="/blog">Blog</a>
                   </li>
                   @if (Auth::check())
                       <li class="nav-item dropdown">

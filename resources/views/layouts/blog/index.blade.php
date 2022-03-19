@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Explore
+    Blog
 @endsection
 
 @section('content')
     <div class="container">
-        <h1> Masukkan konten disini </h1>
+        <h1> Masukkan konten blog disini </h1>
     </div>
 @endsection
