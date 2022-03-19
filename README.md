@@ -9,11 +9,24 @@ composer update
 ```
 
 2. Buat file `.env` lalu untuk isinya dapat di copy dari file `.env.example`
+
 3. Jika pada bagian `APP_KEY=` di file `.env` masih kosong, jalankan perintah
 ```
 php artisan key:generate
 ``` 
-4. Jalankan perintah
+
+4. Sesuaikan konfigurasi database di `.env` bagian `DB`, lalu jalankan MySQL
+
+5. Jika belum ada, buat database dengan nama sesuai di `.env` bagian `DB_DATABASE=`, lalu lakukan migrate dengan perintah
+```
+php artisan migrate
+```
+atau jalankan perintah ini, jika sebelumnya pada database sudah ada isinya
+```
+php artisan migrate:fresh
+```
+
+6. Jalankan perintah untuk menjalankan web
 ```
 php artisan serve
 ```
