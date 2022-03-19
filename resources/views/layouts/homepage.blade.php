@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Landing Page
+    Homepage
 @endsection
 
 @section('content')
@@ -38,9 +38,9 @@
                 <div class="card" >
                     <img src="..." class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Destination 1</h5>
-                      <p class="card-text">Destination Description</p>
-                      <a href="#" class="btn btn-primary">Detail</a>
+                      <h5 class="card-title"><a href="/booking/detail/{{'basic'}}">Package Basic</a></h5>
+                      <p class="card-text">Harus login untuk booking</p>
+                      <a href="/booking/{{'basic'}}" class="btn btn-primary">Booking Now</a>
                     </div>
                   </div>
             </div>
@@ -49,9 +49,9 @@
                 <div class="card" >
                     <img src="..." class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Destination 2</h5>
-                      <p class="card-text">Destination Description</p>
-                      <a href="#" class="btn btn-primary">Detail</a>
+                      <h5 class="card-title"><a href="/booking/detail/{{'premium'}}">Package Premium</a></h5>
+                      <p class="card-text">Harus login untuk booking</p>
+                      <a href="/booking/{{'premium'}}" class="btn btn-primary">Booking Now</a>
                     </div>
                   </div>
             </div>
@@ -59,9 +59,9 @@
                 <div class="card" >
                     <img src="..." class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Destination 3</h5>
-                      <p class="card-text">Destination Description</p>
-                      <a href="#" class="btn btn-primary">Detail</a>
+                      <h5 class="card-title"><a href="/booking/detail/{{'special'}}">Package Special</a></h5>
+                      <p class="card-text">Harus login untuk booking</p>
+                      <a href="/booking/{{'special'}}" class="btn btn-primary">Booking Now</a>
                     </div>
                   </div>
             </div>

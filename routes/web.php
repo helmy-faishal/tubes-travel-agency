@@ -26,3 +26,10 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/', 'App\Http\Controllers\HomepageController@index')->name('hompage');
 
 Route::get('/blog', 'App\Http\Controllers\BlogController@index')->name('blog.index');
+
+Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile.index');
+Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');
+Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
+
+Route::get('/booking/{package}', 'App\Http\Controllers\BookingController@index')->name('booking.index');
+Route::get('/booking/detail/{package}', 'App\Http\Controllers\BookingController@detail')->name('booking.detail');

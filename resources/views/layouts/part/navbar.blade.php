@@ -21,7 +21,7 @@
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                          <li><a class="dropdown-item" href="/profile/setting">Setting</a></li>
+                          <li><a class="dropdown-item" href="/profile/edit">Setting</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="/logout">Logout</a></li>
                           </ul>
