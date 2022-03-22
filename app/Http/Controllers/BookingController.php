@@ -9,12 +9,18 @@ use Auth;
 
 class BookingController extends Controller
 {
+    private $package = [
+        'basic' => 200000,
+        'premium' => 500000,
+        'special' => 750000
+    ];
+
     public function __construct(){
         //Semua perlu login kecuali detail
         $this->middleware('auth')->except(['detail','index']);
     }
     private function CheckPackage($package){
-        return in_array($package, array('basic','premium','special'));
+        return array_key_exists($package, $this->package);
     }
 
     public function index(){
@@ -24,7 +30,7 @@ class BookingController extends Controller
         $id = Auth::user()->id;
         $data = User::find($id);
         if ($this->CheckPackage($package)) {
-            return view('layouts.booking.order',['package'=>$package,'data'=>$data]);
+            return view('layouts.booking.order',['package'=>$package,'price'=>$this->package[$package],'data'=>$data]);
         } else {
             return redirect('/invalid');
         }   
@@ -50,6 +56,7 @@ class BookingController extends Controller
         $booking = Booking::create([
             'user_id' => $id,
             'package' => $request['package'],
+            'price' => $request['price'],
             'name' => $request['name'],
             // 'email' => $request['email'],
             'phone' => $request['phone'],
@@ -95,6 +102,11 @@ class BookingController extends Controller
         // $booking = $user->booking;
         $booking = Booking::where('id',$id)->where('user_id',$user_id)->first();
         return view('layouts.booking.show', compact('booking'));
+    }
+
+    public function destroy($id){
+        $booking = Booking::destroy($id);
+        return redirect()->back();
     }
 
 }

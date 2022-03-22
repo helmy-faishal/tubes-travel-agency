@@ -21,10 +21,11 @@
 
         <div class="container p-3 my-3">
             <table class="table">
-                <thead class="thead-light">
+                <thead class="thead-light bg-light">
                   <tr>
                     <th scope="col" style="width: 10px">#</th>
                     <th scope="col">Package</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Name</th>
                     {{-- <th scope="col">Email</th> --}}
                     <th scope="col">Phone</th>
@@ -37,6 +38,7 @@
                       <tr>
                             <td>{{$key + 1}}</td>
                             <td>{{$value->package}}</td>
+                            <td>Rp{{number_format($value->price)}}</td>
                             <td>{{$value->name}}</td>
                             {{-- <td>{{$value->email}}</td> --}}
                             <td>{{$value->phone}}</td>
@@ -44,7 +46,7 @@
                             <td style="display:flex;">
                                 <a href="/booking/show/{{$value->id}}" class="btn btn-info btn-sm mx-2">Show</a>
                                 <a href="/booking/{{$value->id}}/edit" class="btn btn-secondary btn-sm mx-2">Edit</a>
-                                <form action="/cast/{{$value->id}}" method="post">
+                                <form action="/booking/{{$value->id}}" method="post">
                                     @csrf
                                     @method("DELETE")
                                     <input type="submit" value="Delete" class="btn btn-danger btn-sm mx-2">
@@ -53,7 +55,7 @@
                       </tr>
                   @empty
                       <tr>
-                          <td colspan="6" align="center">No Data</td>
+                          <td colspan="7" align="center">No Data</td>
                       </tr>
                   @endforelse
                 </tbody>

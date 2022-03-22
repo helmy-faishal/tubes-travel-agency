@@ -18,6 +18,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('package');
+            $table->integer('price');
             $table->string('name');
             $table->string('phone');
             $table->date('booking_time');

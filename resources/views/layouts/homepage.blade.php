@@ -34,13 +34,21 @@
     </div>
     <div class="container">
         <div class="row justify-content-center p-3 mb-3">
-            @foreach (array('basic','premium','special') as $item)
+            @php
+                $package = [
+                    'basic' => 200000,
+                    'premium' => 500000,
+                    'special' => 750000
+                ]
+            @endphp
+            @foreach ($package as $item => $price)
                 <div class="col-4 my-2">
                     <div class="card" >
-                        <img src="..." class="card-img-top" alt="...">
+                        <img src="{{asset('images/banjarnegara.jpg')}}" class="card-img-top" alt="...">
                         <div class="card-body">
                         <h5 class="card-title"><a href="/booking/detail/{{$item}}">Paket {{$item}}</a></h5>
                         <p class="card-text">Harus login untuk booking</p>
+                        <p class="card-text"> <b>Harga: Rp {{number_format($price)}}</b></p>
                         <a href="/booking/{{$item}}" class="btn btn-primary">Pesan Sekarang</a>
                         </div>
                     </div>

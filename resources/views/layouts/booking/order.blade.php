@@ -7,7 +7,8 @@
 @section('content')
 <div class="container p-3">
     <p><h3>Booking paket: {{$package}}</h3></p>
-    <p>Data Diri:</p>
+    <p><h4>Price: Rp{{number_format($price)}}</h4></p>
+    <p>Identity Order:</p>
 
     <div class="container my-3 p-3 bg-light">
         <form action="/booking" method="POST">
@@ -46,6 +47,7 @@
                 <div class="alert alert-danger mt-1">{{ $message }}</div>
             @enderror
             <input type="hidden" name="package" value={{$package}}>
+            <input type="hidden" name="price" value={{$price}}>
 
             <button type="submit" class="btn btn-success my-3">Booking Now</button>
         </form>

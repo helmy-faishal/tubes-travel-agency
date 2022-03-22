@@ -37,3 +37,4 @@ Route::get('/booking/detail/{package}', 'App\Http\Controllers\BookingController@
 Route::post('/booking', 'App\Http\Controllers\BookingController@store')->name('booking.store');
 Route::get('/booking/show/{id}', 'App\Http\Controllers\BookingController@show')->name('booking.show');
 Route::get('/booking/{id}/edit', 'App\Http\Controllers\BookingController@edit')->name('booking.edit');
+Route::delete('/booking/{id}', 'App\Http\Controllers\BookingController@destroy')->name('booking.destroy');
