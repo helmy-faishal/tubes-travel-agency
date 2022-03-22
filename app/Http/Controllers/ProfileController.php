@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Booking;
 use Auth;
 use Session;
 
@@ -16,6 +17,7 @@ class ProfileController extends Controller
     public function index(){
         $id = Auth::user()->id;
         $data['user'] = User::find($id)->first();
+        $data['booking'] = Booking::where('user_id',$id)->get();
         return view('layouts.profile.index',compact('data'));
     }
     public function edit(){
@@ -29,8 +31,8 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         $request->validate([
-            'name' => ['string', 'max:255'],
-            'birthdate' => ['date'],
+            'name' => ['required','string', 'max:255'],
+            'birthdate' => ['required','date'],
         ]);
 
         if (($request->name != $user->name) || ($request->birthdate != $user->birthdate)) {

@@ -31,5 +31,9 @@ Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('pr
 Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');
 Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
 
-Route::get('/booking/{package}', 'App\Http\Controllers\BookingController@index')->name('booking.index');
+Route::get('/booking', 'App\Http\Controllers\BookingController@index')->name('booking.index');
+Route::get('/booking/{package}', 'App\Http\Controllers\BookingController@order')->name('booking.order');
 Route::get('/booking/detail/{package}', 'App\Http\Controllers\BookingController@detail')->name('booking.detail');
+Route::post('/booking', 'App\Http\Controllers\BookingController@store')->name('booking.store');
+Route::get('/booking/show/{id}', 'App\Http\Controllers\BookingController@show')->name('booking.show');
+Route::get('/booking/{id}/edit', 'App\Http\Controllers\BookingController@edit')->name('booking.edit');
