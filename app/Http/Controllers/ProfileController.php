@@ -31,14 +31,20 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         $request->validate([
-            'name' => ['required','string', 'max:255'],
-            'birthdate' => ['required','date'],
+            'username' => ['required','string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255']
         ]);
 
-        if (($request->name != $user->name) || ($request->birthdate != $user->birthdate)) {
+        if ($request->email != $user->email) {
+            $request->validate([
+                'email' => ['unique:users']
+            ]);
+        }
+
+        if (($request->name != $user->name)) {
             $profile = User::where('id',$id)->update([
-                'name' => $request['name'],
-                'birthdate' => $request['birthdate']
+                'username' => $request['username'],
+                'email' => $request['email']
             ]);
 
             Session::flash('success','Success change profile');

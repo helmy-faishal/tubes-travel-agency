@@ -9,39 +9,14 @@ use Auth;
 
 class BookingController extends Controller
 {
-    private $package = [
-        'basic' => 200000,
-        'premium' => 500000,
-        'special' => 750000
-    ];
 
     public function __construct(){
         //Semua perlu login kecuali detail
-        $this->middleware('auth')->except(['detail','index']);
-    }
-    private function CheckPackage($package){
-        return array_key_exists($package, $this->package);
+        $this->middleware('auth')->except(['index']);
     }
 
     public function index(){
         return view('layouts.booking.index');
-    }
-    public function order($package){
-        $id = Auth::user()->id;
-        $data = User::find($id);
-        if ($this->CheckPackage($package)) {
-            return view('layouts.booking.order',['package'=>$package,'price'=>$this->package[$package],'data'=>$data]);
-        } else {
-            return redirect('/invalid');
-        }   
-    }
-
-    public function detail($package){
-        if ($this->CheckPackage($package)) {
-            return view('layouts.booking.detail',['package'=>$package]);
-        } else {
-            return redirect('/invalid');
-        }
     }
 
     public function store(Request $request){

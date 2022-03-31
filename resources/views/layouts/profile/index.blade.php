@@ -1,20 +1,28 @@
-@extends('layouts.master')
+@extends('layouts.base')
+
+@push('styles')
+    <link href="{{asset('MilleniumTravelAgency/Home/home.css')}}" rel="stylesheet">
+@endpush
 
 @section('title')
     Profile
 @endsection
 
 @section('content')
-    <div class="container p-3 mb-3">
+    <div class="container p-3 mb-3" style="margin-top: 100px">
         @if (Session::has('success'))
             <div class="alert alert-success" role="alert">
                 {{Session::get('success')}}
             </div>
         @endif
-        {{-- {{dd($data['user'])}} --}}
-        <p>Nama: {{$data['user']->name}}</p>
-        <p>Tanggal Lahir: {{$data['user']->birthdate}}</p>
+
+        <p>Nama: {{$data['user']->username}}</p>
         <p>Email: {{$data['user']->email}}</p>
+
+        <div class="d-flex justify-content-between">
+            <a href="/profile/edit" class="btn btn-secondary" role="button">Setting</a>
+            <a href="/logout" class="btn btn-danger" role="button">Logout</a>
+        </div>
     </div>
     <div class="container p-3">
         <p>History Booking</p>
@@ -63,3 +71,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{asset('MilleniumTravelAgency/Home/home.js')}}"></script>
+@endpush

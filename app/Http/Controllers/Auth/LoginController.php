@@ -44,4 +44,8 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function showLoginForm(){
+        return view('layouts.users.login');
+    }
 }
