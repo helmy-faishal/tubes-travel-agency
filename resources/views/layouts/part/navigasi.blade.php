@@ -11,13 +11,13 @@
               <a class="nav-link borderA this" href="/">Beranda</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link borderA" href="D:\Semester 6\ABP\Millennium Travel Agency\PaketWisata\paketWisata.html">Paket Wisata</a>
+              <a class="nav-link borderA" href="{{route('booking.index')}}">Paket Wisata</a>
             </li>
             <li>
-              <a class="nav-link borderA" href="D:\Semester 6\ABP\Millennium Travel Agency\TravelBlog\travelBlog.html">Travel Blog</a>
+              <a class="nav-link borderA" href="{{route('blog.index')}}">Travel Blog</a>
             </li>
             <li>
-              <a class="nav-link" href="D:\Semester 6\ABP\Millennium Travel Agency\Kontak\kontak.html">Kontak</a>
+              <a class="nav-link" href="{{route('kontak.index')}}">Kontak</a>
             </li>
             @if (Auth::check())
                 {{-- <li class="nav-item dropdown">

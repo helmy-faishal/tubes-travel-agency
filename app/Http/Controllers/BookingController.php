@@ -11,7 +11,7 @@ class BookingController extends Controller
 {
 
     public function __construct(){
-        //Semua perlu login kecuali detail
+        //Semua perlu login kecuali index
         $this->middleware('auth')->except(['index']);
     }
 
