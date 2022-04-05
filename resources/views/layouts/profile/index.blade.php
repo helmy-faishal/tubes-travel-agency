@@ -31,39 +31,37 @@
             <table class="table">
                 <thead class="thead-light bg-light">
                   <tr>
-                    <th scope="col" style="width: 10px">#</th>
-                    <th scope="col">Package</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Name</th>
-                    {{-- <th scope="col">Email</th> --}}
-                    <th scope="col">Phone</th>
-                    <th scope="col">Booking Time</th>
-                    <th scope="col" style="width: 40px">Action</th>
+                    <th scope="col">Nama Pemesan</th>
+                    <th scope="col">Paket</th>
+                    <th scope="col">Tanggal Perjalanan</th>
+                    <th scope="col">Metode Pembayaran</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Invoice</th>
+                    {{-- <th scope="col" style="width: 40px">Action</th> --}}
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse ($data['booking'] as $key => $value)
+                  @forelse ($data['booking'] as $key => $booking)
                       <tr>
-                            <td>{{$key + 1}}</td>
-                            <td>{{$value->package}}</td>
-                            <td>Rp{{number_format($value->price)}}</td>
-                            <td>{{$value->name}}</td>
-                            {{-- <td>{{$value->email}}</td> --}}
-                            <td>{{$value->phone}}</td>
-                            <td>{{$value->booking_time}}</td>
-                            <td style="display:flex;">
-                                <a href="/booking/show/{{$value->id}}" class="btn btn-info btn-sm mx-2">Show</a>
-                                <a href="/booking/{{$value->id}}/edit" class="btn btn-secondary btn-sm mx-2">Edit</a>
-                                <form action="/booking/{{$value->id}}" method="post">
+                            <td>{{$booking->nama}}</td>
+                            <td>{{$booking->paket_wisata}}</td>
+                            <td>{{$booking->tgl_perjalanan}}</td>
+                            <td>{{$booking->metode_pembayaran}}</td>
+                            <td>Rp{{number_format($booking->harga)}}</td>
+                            <td>{{$booking->invoice}}</td>
+                            {{-- <td style="display:flex;">
+                                <a href="/booking/show/{{$booking->id}}" class="btn btn-info btn-sm mx-2">Show</a>
+                                <a href="/booking/{{$booking->id}}/edit" class="btn btn-secondary btn-sm mx-2">Edit</a>
+                                <form action="/booking/{{$booking->id}}" method="post">
                                     @csrf
                                     @method("DELETE")
-                                    <input type="submit" value="Delete" class="btn btn-danger btn-sm mx-2">
+                                    <input type="submit" booking="Delete" class="btn btn-danger btn-sm mx-2">
                                 </form>
-                            </td>
+                            </td> --}}
                       </tr>
                   @empty
                       <tr>
-                          <td colspan="7" align="center">No Data</td>
+                          <td colspan="6" align="center">No Data</td>
                       </tr>
                   @endforelse
                 </tbody>

@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
     public function index(){
         $id = Auth::user()->id;
-        $data['user'] = User::find($id)->first();
+        $data['user'] = User::where('id',$id)->first();
         $data['booking'] = Booking::where('user_id',$id)->get();
         return view('layouts.profile.index',compact('data'));
     }

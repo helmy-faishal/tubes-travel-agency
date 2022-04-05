@@ -5,83 +5,102 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Booking;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Auth;
+use Session;
 
 class BookingController extends Controller
 {
+    private $paket = array(
+        "Honeymoon In Blue Clouds" => 1500000,
+        "Fun Family Vacation" => 2500000,
+        "Solo Traveller" => 2500000
+    );
 
     public function __construct(){
         //Semua perlu login kecuali index
         $this->middleware('auth')->except(['index']);
     }
 
+    private function generateInvoice(){
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charslen = strlen($chars);
+        $randomString = '';
+
+        for ($i=0; $i < 32; $i++) { 
+            $randomString .= $chars[rand(0,$charslen-1)];
+        }
+
+        return $randomString;
+    }
+
     public function index(){
         return view('layouts.booking.index');
     }
 
-    public function store(Request $request){
+    public function payment(Request $request){
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255'],
-            'phone' => ['required', 'string'],
-            'booking_time' => ['required','date']
+            "nama" => 'required|string',
+            "tglperjalanan" => 'required|date',
+            "paketwisata" => 'required',
+            "metodePembayaran" => 'required'
         ]);
 
-        $id = Auth::user()->id;
-        $booking = Booking::create([
-            'user_id' => $id,
-            'package' => $request['package'],
-            'price' => $request['price'],
-            'name' => $request['name'],
-            // 'email' => $request['email'],
-            'phone' => $request['phone'],
-            'booking_time' => $request['booking_time']
-        ]);
-
-        return redirect('/profile');
-    }
-
-    public function edit($id){
-        $user_id = Auth::user()->id;
-        // $user = User::find($user_id);
-        // $booking = $user->booking;
-        $booking = Booking::where('id',$id)->where('user_id',$user_id)->first();
-        return view('layouts.booking.edit', compact('booking'));
-    }
-
-    public function update(Request $request){
-        $id = Auth::user()->id;
-        $user = User::find($id);
-
-        $request->validate([
-            'name' => ['required','string', 'max:255'],
-            'birthdate' => ['required','date'],
-        ]);
-
-        if (($request->name != $user->name) || ($request->birthdate != $user->birthdate)) {
-            $profile = User::where('id',$id)->update([
-                'name' => $request['name'],
-                'birthdate' => $request['birthdate']
-            ]);
-
-            Session::flash('success','Success change profile');
-        }
-
-        return redirect('/profile');
+        $invoice = $this->generateInvoice();
         
+        $booking = array(
+            "nama" => $request['nama'],
+            "tglperjalanan" => $request['tglperjalanan'],
+            "paketwisata" => $request['paketwisata'],
+            "metodePembayaran" => $request['metodePembayaran'],
+            'harga' => $this->paket[$request['paketwisata']],
+            'invoice' => $invoice,
+            'qrcode' => QrCode::size(250)->generate('pembayaran-' . $invoice)
+        );
+        
+        Session::put('booking',$booking);
+        
+        return redirect()->route('booking.create');
+    }
+    
+    public function create()
+    {
+        return view('layouts.booking.payment');
+    }
+    
+    public function store(Request $request){
+        $id = Auth::user()->id;
+
+        $booking = Session::get('booking');
+
+        $booking = Booking::create([
+            "user_id" => $id,
+            "nama" => $booking['nama'],
+            "tgl_perjalanan" => $booking['tglperjalanan'],
+            "paket_wisata" => $booking['paketwisata'],
+            "metode_pembayaran" => $booking['metodePembayaran'],
+            'harga' => $booking['harga'],
+            'invoice' => $booking['invoice']
+        ]);
+        
+        Session::forget('booking');
+
+        return redirect('/paket');
+    }
+    
+    public function edit($id){
+       //
+    }
+    
+    public function update(Request $request){
+        //
     }
 
     public function show($id){
-        $user_id = Auth::user()->id;
-        // $user = User::find($user_id);
-        // $booking = $user->booking;
-        $booking = Booking::where('id',$id)->where('user_id',$user_id)->first();
-        return view('layouts.booking.show', compact('booking'));
+        //
     }
 
     public function destroy($id){
-        $booking = Booking::destroy($id);
-        return redirect()->back();
+        //
     }
-
 }

@@ -179,22 +179,28 @@
         <h1 style="color:white;padding-top: 100px;">Trip Menyenangkan Bersama Kami!</h1>
     </div>
     <div class="right">
-        <form id="paketWisataForm" action="" style="background-color:white;height: 500px; width: 400px;border-radius: 30px; text-align: left;padding: 10px;opacity: 0.7;">
+        <form method="POST" id="paketWisataForm" action="{{route('booking.payment')}}" style="background-color:white;height: 500px; width: 400px;border-radius: 30px; text-align: left;padding: 10px;opacity: 0.7;">
+            @csrf
+            @method('POST')
             <h1 style="text-decoration: 1px underline; font-size: 20px; padding-left: 10px; padding-right: 10px; padding-top: 10px; text-align: center;">Form Pemesanan Paket Wisata</h1>
             <label>
                 Nama Lengkap <br>
-                <input type="text" placeholder="Masukan nama lengkap Anda!" style="width:350px">
+                {{-- @if (Auth::check())
+                    {{$name = Auth::user()->username}}
+                @else
+                    {{$name = ''}}
+                @endif --}}
+                <input type="text" placeholder="Masukan nama lengkap Anda!" value="{{(Auth::check()) ? $name = Auth::user()->username : ''}}" style="width:350px" required name="nama">
             </label>
             <br>
             <label>
                 Tanggal perjalanan <br>
-                <input type="date" style="width:350px">
+                <input type="date" style="width:350px" min="{{date('Y-m-d')}}" required name="tglperjalanan">
             </label>
             <br>
             <label>
                 Pilih Paket Wisata <br>
-                <select name="paketwisata" id="paketwisata" form="paketWisataForm" style="width: 350px;">
-                    <option disabled selected value="none">none</option>
+                <select name="paketwisata" id="paketwisata" form="paketWisataForm" style="width: 350px;" required>
                     <option value="Honeymoon In Blue Clouds">Honeymoon In Blue Clouds</option>
                     <option value="Fun Family Vacation">Fun Family Vacation</option>
                     <option value="Solo Traveller">Solo Traveller</option>
@@ -202,11 +208,11 @@
             </label>
             <label>
                 Pilih Metode Pembayaran<br>
-                <select name="metodePembayaran" id="metodePembayaran" form="paketWisataForm" style="width: 350px;">
-                    <option disabled selected value="none">none</option>
+                <select name="metodePembayaran" id="metodePembayaran" form="paketWisataForm" style="width: 350px;" required>
                     <option value="OVO">OVO</option>
-                    <option value="ATM BCA">ATM BCA</option>
-                    <option value="GOPAY">GOPAY</option>
+                    <option value="ATM BCA">Dana</option>
+                    <option value="GOPAY">Gopay</option>
+                    <option value="GOPAY">LinkAja</option>
                 </select>
             </label>
             <button type="submit" style="margin-top: 10px; margin-left: 220px; background-color: rgba(238,231,218,255);cursor: pointer;border-radius: 10px;">Pesan Sekarang</button>

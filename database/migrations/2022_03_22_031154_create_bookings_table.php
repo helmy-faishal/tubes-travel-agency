@@ -17,11 +17,12 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('package');
-            $table->integer('price');
-            $table->string('name');
-            $table->string('phone');
-            $table->date('booking_time');
+            $table->string('nama');
+            $table->string('paket_wisata');
+            $table->date('tgl_perjalanan');
+            $table->string('metode_pembayaran');
+            $table->string('invoice');
+            $table->integer('harga');
             $table->timestamps();
         });
     }

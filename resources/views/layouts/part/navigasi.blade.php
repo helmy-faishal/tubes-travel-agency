@@ -36,10 +36,10 @@
               </li>
             @else
                 <li class="nav-item">
-                    <a href="/login" class="nav-link">Login</a>
+                  <a class="nav-link" href="{{route('register')}}" style="font-size: 12px; border-right: 1px solid white; padding-right: 30px;">Daftar</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/register" class="nav-link">Register</a>
+                  <a class="nav-link" href="{{route('login')}}" style="font-size: 12px; margin-left: 0px;">Masuk</a>
                 </li>
             @endif
         </div>

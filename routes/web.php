@@ -21,8 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-// Route::get('/register', '\App\Http\Controllers\Auth\RegisterController@register');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', 'App\Http\Controllers\HomepageController@index')->name('hompage');
@@ -34,10 +32,9 @@ Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name
 Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
 
 Route::get('/paket', 'App\Http\Controllers\BookingController@index')->name('booking.index');
-// Route::post('/booking', 'App\Http\Controllers\BookingController@store')->name('booking.store');
-// Route::get('/booking/show/{id}', 'App\Http\Controllers\BookingController@show')->name('booking.show');
-// Route::get('/booking/{id}/edit', 'App\Http\Controllers\BookingController@edit')->name('booking.edit');
-// Route::delete('/booking/{id}', 'App\Http\Controllers\BookingController@destroy')->name('booking.destroy');
+Route::post('/paket', 'App\Http\Controllers\BookingController@payment')->name('booking.payment');
+Route::get('/paket/bayar', 'App\Http\Controllers\BookingController@create')->name('booking.create');
+Route::post('/paket/bayar', 'App\Http\Controllers\BookingController@store')->name('booking.store');
 
 Route::get('/kontak', function () {
     return view('layouts.kontak.index');
