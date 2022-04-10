@@ -25,7 +25,10 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', 'App\Http\Controllers\HomepageController@index')->name('hompage');
 
-Route::get('/blog', 'App\Http\Controllers\BlogController@index')->name('blog.index');
+Route::get('/blog/alam', 'App\Http\Controllers\BlogController@alam')->name('blog.alam');
+Route::get('/blog/kuliner', 'App\Http\Controllers\BlogController@kuliner')->name('blog.kuliner');
+Route::get('/blog/hotel', 'App\Http\Controllers\BlogController@hotel')->name('blog.hotel');
+Route::get('/blog/hiburan', 'App\Http\Controllers\BlogController@hiburan')->name('blog.hiburan');
 
 Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile.index');
 Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');

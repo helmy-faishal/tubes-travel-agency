@@ -13,54 +13,52 @@
 <div id="main">
     <div class="menu">
     <nav class="nav-menu">
+        @php
+            $menu = [
+                'Wisata Alam' => 'blog.alam',
+                'Kuliner' => 'blog.kuliner',
+                'Hotel' => 'blog.hotel',
+                'Hiburan' => 'blog.hiburan'
+                ]
+        @endphp
         <ul class="contain">
-            <li>
-                <a href="travelBlog.html" class="item this">Wisata Alam</a>
-            </li>
-            <li>
-                <a href="" class="item" >Kuliner</a>
-            </li>
-            <li>
-                <a href="" class="item">Hotel</a>
-            </li>
-            <li>
-                <a href="" class="item">Hiburan</a>
-            </li>
+            @foreach ($menu as $kategori => $route)
+                @if ($kategori == $blog)
+                    <li>
+                        <a href="{{route($route)}}" class="item this">{{$kategori}}</a>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{route($route)}}" class="item">{{$kategori}}</a>
+                    </li>
+                @endif
+            @endforeach
         </ul>
     </nav>
     </div>
     <div class="container">
-    <div class="box-item">
-        <div class="left-item">
-            <img src="{{asset('MilleniumTravelAgency/TravelBlog/telaga.jpeg')}}" alt="">
-        </div>
-        <div class="right-item">
-            <h3>Telaga Warna</h3>
-            <p>
-                Nama Telaga Warna sendiri diberikan karena keunikan fenomena alam yang terjadi di tempat ini, 
-                yaitu warna air dari telaga tersebut yang sering berubah-ubah. 
+        @foreach ($data as $destination)
+            <div class="box-item">
+                <div class="left-item">
+                    <img src="{{asset($destination->gambar)}}" alt="{{$destination->nama}}">
+                </div>
+                <div class="right-item">
+                    <h3>{{$destination->nama}}</h3>
+                    <p class="text-break">{{$destination->deskripsi}}</p>
+                    <p>{{$destination->lokasi}}</p>
+                    @isset($destination->harga)
+                        <p>Info Harga/Tiket: {{$destination->harga}}</p>
+                    @endisset
 
-                <p>Lokasi : Dieng <br>
-                HTM &ensp;: Rp15000/orang
-                </p>
-            </p>
+                    @isset($destination->link_resmi)
+                        <p>Link Resmi: <a href="{{$destination->link_resmi}}">{{$destination->nama}}</a></p>
+                    @endisset
+                </div>
+            </div>
+        @endforeach
+        <div class="d-flex justify-content-end">
+            {!!$data->links()!!}
         </div>
-    </div>
-    <div class="box-item">
-        <div class="left-item">
-            <img src="{{asset('MilleniumTravelAgency/TravelBlog/sikunir.jpg')}}" alt="">
-        </div>
-        <div class="right-item">
-            <h3>Bukit Sikunir</h3>
-            <p>
-                Di Dieng, terdapat banyak bukit atau gunung yang bisa dijadikan pilihan untuk menikmati panorama sunrise karena kawasan Dieng merupakan dataran tinggi. 
-                Salah satu bukit yang populer di Dieng dengan panorama sunrise-nya adalah Bukit Sikunir.
-
-                <p>Lokasi : Dieng <br>
-                HTM &ensp;: Rp10000/orang
-                </p>
-        </div>
-    </div>
     </div>
 </div>
 @endsection

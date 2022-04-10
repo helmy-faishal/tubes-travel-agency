@@ -14,7 +14,7 @@
               <a class="nav-link borderA" href="{{route('booking.index')}}">Paket Wisata</a>
             </li>
             <li>
-              <a class="nav-link borderA" href="{{route('blog.index')}}">Travel Blog</a>
+              <a class="nav-link borderA" href="{{route('blog.alam')}}">Travel Blog</a>
             </li>
             <li>
               <a class="nav-link" href="{{route('kontak.index')}}">Kontak</a>

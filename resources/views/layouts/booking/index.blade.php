@@ -185,11 +185,6 @@
             <h1 style="text-decoration: 1px underline; font-size: 20px; padding-left: 10px; padding-right: 10px; padding-top: 10px; text-align: center;">Form Pemesanan Paket Wisata</h1>
             <label>
                 Nama Lengkap <br>
-                {{-- @if (Auth::check())
-                    {{$name = Auth::user()->username}}
-                @else
-                    {{$name = ''}}
-                @endif --}}
                 <input type="text" placeholder="Masukan nama lengkap Anda!" value="{{(Auth::check()) ? $name = Auth::user()->username : ''}}" style="width:350px" required name="nama">
             </label>
             <br>
@@ -217,7 +212,7 @@
             </label>
             <button type="submit" style="margin-top: 10px; margin-left: 220px; background-color: rgba(238,231,218,255);cursor: pointer;border-radius: 10px;">Pesan Sekarang</button>
             <p style="text-align: center; margin-top: 50px; height: 20px;font-size: 12px; margin-bottom: 0px;">Belum login?</p>
-            <p style="text-align: center;font-size: 12px; height: 20px; margin-bottom: 0;"><a style="text-decoration: underline; color: royalblue;" href="#">Login</a> atau <a style="text-decoration: underline;color: royalblue;" href="#">Daftar</a></p>
+            <p style="text-align: center;font-size: 12px; height: 20px; margin-bottom: 0;"><a style="text-decoration: underline; color: royalblue;" href="{{route('login')}}">Login</a> atau <a style="text-decoration: underline;color: royalblue;" href="{{route('register')}}">Daftar</a></p>
             <p style="text-align: center; color: orange;margin-top: 10px;">Millennium Travel Agency</p>
         </form>
         

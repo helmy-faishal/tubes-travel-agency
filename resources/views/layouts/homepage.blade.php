@@ -58,23 +58,23 @@
     </div>
     <div class="imageKonten">
         <div class="img">
-        <img src="{{asset('MilleniumTravelAgency/Home/kawah.jpg')}}" alt="kawah">
-        <h3>Kawah Sikidang</h3>
-        <button type="button" class="button" style="vertical-align:middle" href="#"><span>Info Destinasi</span></button>
+            <img src="{{asset('MilleniumTravelAgency/Home/kawah.jpg')}}" alt="kawah">
+            <h3>Kawah Sikidang</h3>
+            <a type="button" class="button" style="vertical-align:middle" href="{{route('blog.alam')}}"><span>Info Destinasi</span></a>
         </div>
         <div class="img">
-        <img src="{{asset('MilleniumTravelAgency/Home/telaga.jpg')}}" alt="telaga">
-        <h3>Telaga Warna</h3>
-        <button type="button" class="button" style="vertical-align:middle" href="#"><span>Info Destinasi</span></button>
+            <img src="{{asset('MilleniumTravelAgency/Home/telaga.jpg')}}" alt="telaga">
+            <h3>Telaga Warna</h3>
+            <a type="button" class="button" style="vertical-align:middle" href="{{route('blog.alam')}}"><span>Info Destinasi</span></a>
         </div>
         <div class="img">
-        <img src="{{asset('MilleniumTravelAgency/Home/candi-dieng.jpg')}}" alt="candi">
-        <h3>Candi Dieng</h3>
-        <button type="button" class="button" style="vertical-align:middle" href="#"><span>Info Destinasi</span></button>
+            <img src="{{asset('MilleniumTravelAgency/Home/candi-dieng.jpg')}}" alt="candi">
+            <h3>Candi Dieng</h3>
+            <a type="button" class="button" style="vertical-align:middle" href="{{route('blog.alam')}}"><span>Info Destinasi</span></a>
         </div>
     </div>
     <div class="arrow" style="margin-right: 10%;margin-top: 5%;">
-        <a class="arrow_box" href="">Lihat Semua Destinasi</a>
+        <a class="arrow_box" href="{{route('blog.alam')}}">Lihat Semua Destinasi</a>
     </div>
     </section>
     <section id="konten4">
@@ -135,11 +135,12 @@
         </div>
     </div>
     <div class="arrow" style="text-align: right;margin-right: 10%;margin-top: 5%;">
-        <a class="arrow_box" href="">Pilih Paket Wisata</a>
+        <a class="arrow_box" href="/paket">Pilih Paket Wisata</a>
     </div>
     </section>
 @endsection
 
 @push('scripts')
     <script src="{{asset('MilleniumTravelAgency/Home/home.js')}}"></script>
+    <script></script>
 @endpush
