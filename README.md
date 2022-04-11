@@ -16,17 +16,19 @@ php artisan key:generate
 ``` 
 
 4. Sesuaikan konfigurasi database di `.env` bagian `DB`, lalu jalankan MySQL
-
-5. Jika belum ada, buat database dengan nama sesuai di `.env` bagian `DB_DATABASE=`, lalu lakukan migrate dengan perintah
+5. Hubungkan storage dengan perintah
 ```
-php artisan migrate
+php artisan storage:link
+```
+6. Jika belum ada databasenya, buat database dengan nama sesuai di `.env` bagian `DB_DATABASE=`, lalu lakukan migrate dengan perintah
+```
+php artisan migrate --seed
 ```
 atau jalankan perintah ini, jika sebelumnya pada database sudah ada isinya
 ```
-php artisan migrate:fresh
+php artisan migrate:fresh --seed
 ```
-
-6. Jalankan perintah untuk menjalankan web
+7. Jalankan perintah untuk menjalankan web
 ```
 php artisan serve
 ```
