@@ -205,9 +205,9 @@
                 Pilih Metode Pembayaran<br>
                 <select name="metodePembayaran" id="metodePembayaran" form="paketWisataForm" style="width: 350px;" required>
                     <option value="OVO">OVO</option>
-                    <option value="ATM BCA">Dana</option>
+                    <option value="Dana">Dana</option>
                     <option value="GOPAY">Gopay</option>
-                    <option value="GOPAY">LinkAja</option>
+                    <option value="LinkAja">LinkAja</option>
                 </select>
             </label>
             <button type="submit" style="margin-top: 10px; margin-left: 220px; background-color: rgba(238,231,218,255);cursor: pointer;border-radius: 10px;">Pesan Sekarang</button>

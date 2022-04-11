@@ -6,7 +6,7 @@
 @endpush
 
 @section('title')
-    Blog
+    Blog - {{$blog}}
 @endsection
 
 @section('content')

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Booking;
 use Auth;
 use Session;
+use Hash;
 
 class ProfileController extends Controller
 {
@@ -41,16 +42,42 @@ class ProfileController extends Controller
             ]);
         }
 
+        $password = $user->password;
+        if(isset($request->password_lama,$request->password,$request->confirmed_password)){
+            if(!Hash::check($request->password_lama, $password)){
+                Session::flash('invalid_pass','Password anda salah');
+                return redirect()->back();
+            }
+            
+            $request->validate([
+                'password' => ['required', 'string', 'min:8', 'confirmed']
+            ]);
+            $password = Hash::make($request['password']);
+        }
+
         if (($request->name != $user->name)) {
             $profile = User::where('id',$id)->update([
                 'username' => $request['username'],
-                'email' => $request['email']
+                'email' => $request['email'],
+                'password' => $password
             ]);
 
-            Session::flash('success','Success change profile');
+            Session::flash('success','Berhasil memperbarui profil');
         }
 
         return redirect('/profile');
         
+    }
+
+    public function destroy(){
+        $id = Auth::user()->id;
+
+        $bookings = Booking::where('user_id',$id)->get();
+        $bookings->each->delete();
+
+        Auth::logout();
+        User::where('id',$id)->delete();
+
+        return redirect('/');
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Booking;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Auth;
 use Session;
+use Hash;
 
 class BookingController extends Controller
 {
@@ -55,7 +56,7 @@ class BookingController extends Controller
             "metodePembayaran" => $request['metodePembayaran'],
             'harga' => $this->paket[$request['paketwisata']],
             'invoice' => $invoice,
-            'qrcode' => QrCode::size(250)->generate('pembayaran-' . $invoice)
+            'qrcode' => QrCode::size(250)->generate('simulasi-pembayaran-' . $invoice)
         );
         
         Session::put('booking',$booking);
@@ -89,11 +90,32 @@ class BookingController extends Controller
     }
     
     public function edit($id){
-       //
+        $user_id = Auth::user()->id;
+        $booking = Booking::where('id',$id)->where('user_id',$user_id)->first();
+        if (isset($booking)) {
+            return view('layouts.booking.edit',compact('booking'));
+        } else {
+            abort(404);
+        }
     }
     
-    public function update(Request $request){
-        //
+    public function update(Request $request, $id){
+        $request->validate([
+            'email' => ['required','string','email'],
+            'password' => ['required','string'],
+            'tgl_perjalanan' => ['required','date']
+        ]);
+
+        $user = Auth::user();
+        
+        if ($user->email === $request['email'] && Hash::check($request['password'], $user->password)){
+            Booking::where('id',$id)->where('user_id',$user->id)->update([
+                'tgl_perjalanan' => $request['tgl_perjalanan']
+            ]);
+            return redirect()->route('profile.index');
+        }
+        Session::flash('invalid_user','Email atau Password anda salah');
+        return redirect()->back();
     }
 
     public function show($id){
@@ -101,6 +123,8 @@ class BookingController extends Controller
     }
 
     public function destroy($id){
-        //
+        $user_id = Auth::user()->id;
+        $booking = Booking::where('id',$id)->where('user_id',$user_id)->delete();
+        return redirect()->back();
     }
 }

@@ -33,11 +33,16 @@ Route::get('/blog/hiburan', 'App\Http\Controllers\BlogController@hiburan')->name
 Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile.index');
 Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');
 Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');
+Route::delete('/profile', 'App\Http\Controllers\ProfileController@destroy')->name('profile.destroy');
 
 Route::get('/paket', 'App\Http\Controllers\BookingController@index')->name('booking.index');
 Route::post('/paket', 'App\Http\Controllers\BookingController@payment')->name('booking.payment');
 Route::get('/paket/bayar', 'App\Http\Controllers\BookingController@create')->name('booking.create');
 Route::post('/paket/bayar', 'App\Http\Controllers\BookingController@store')->name('booking.store');
+
+Route::get('/paket/edit/{id}', 'App\Http\Controllers\BookingController@edit')->name('booking.edit');
+Route::put('/paket/edit/{id}', 'App\Http\Controllers\BookingController@update')->name('booking.update');
+Route::delete('/paket/hapus/{id}', 'App\Http\Controllers\BookingController@destroy')->name('booking.destroy');
 
 Route::get('/kontak', function () {
     return view('layouts.kontak.index');
