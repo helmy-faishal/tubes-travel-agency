@@ -60,23 +60,45 @@
         <div class="img">
             <img src="{{asset('MilleniumTravelAgency/Home/kawah.jpg')}}" alt="kawah">
             <h3>Kawah Sikidang</h3>
-            <a type="button" class="button" style="vertical-align:middle" href="{{route('blog.alam')}}"><span>Info Destinasi</span></a>
+            <a type="button" class="button info-destinasi" id="Kawah Sikidang" style="vertical-align:middle"><span>Info Destinasi</span></a>
         </div>
         <div class="img">
             <img src="{{asset('MilleniumTravelAgency/Home/telaga.jpg')}}" alt="telaga">
             <h3>Telaga Warna</h3>
-            <a type="button" class="button" style="vertical-align:middle" href="{{route('blog.alam')}}"><span>Info Destinasi</span></a>
+            <a type="button" class="button info-destinasi" id="Telaga Warna" style="vertical-align:middle"><span>Info Destinasi</span></a>
         </div>
         <div class="img">
             <img src="{{asset('MilleniumTravelAgency/Home/candi-dieng.jpg')}}" alt="candi">
             <h3>Candi Dieng</h3>
-            <a type="button" class="button" style="vertical-align:middle" href="{{route('blog.alam')}}"><span>Info Destinasi</span></a>
+            <a type="button" class="button info-destinasi" id="Candi Dieng" style="vertical-align:middle"><span>Info Destinasi</span></a>
         </div>
     </div>
     <div class="arrow" style="margin-right: 10%;margin-top: 5%;">
         <a class="arrow_box" href="{{route('blog.alam')}}">Lihat Semua Destinasi</a>
     </div>
+
+    
     </section>
+
+    <div class="modal fade" id="modal-info-destinasi">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card">
+                    <h3 class="card-title my-2 p-3" id="nama-destinasi"></h3>
+                    <div class="text-center p-3">
+                        <img class="card-img" id="gambar-destinasi">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="deskripsi-destinasi"></p>
+                        <p class="card-text" id="lokasi-destinasi"></p>
+                        <p class="card-text" id="harga-destinasi"></p>
+                        <p class="card-text" id="link-resmi-destinasi"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section id="konten4">
     <h1>Dieng Culture Festival!</h1>
     <div class="slider">
@@ -142,5 +164,48 @@
 
 @push('scripts')
     <script src="{{asset('MilleniumTravelAgency/Home/home.js')}}"></script>
-    <script></script>
+    
+    <script>
+        const gambarCard = document.getElementById('gambar-destinasi');
+        const namaCard = document.getElementById('nama-destinasi');
+        const deskripsiCard = document.getElementById('deskripsi-destinasi');
+        const lokasiCard = document.getElementById('lokasi-destinasi');
+        const hargaCard = document.getElementById('harga-destinasi');
+        const linkResmiCard = document.getElementById('link-resmi-destinasi');
+        
+        $('.info-destinasi').click(function(e){
+            e.preventDefault();
+
+            $.ajax('/api/blog/cari',{
+                data:{'kata_kunci':this.id},
+                success: successHandler
+            })
+        });
+
+        function successHandler(data) {
+            // console.log(data?.data);
+            if (data?.data.length != 0) {
+                let destinasi = data?.data[0];
+                
+                gambarCard.src = `/${destinasi.gambar}`;
+                gambarCard.alt = destinasi.nama;
+
+                namaCard.innerHTML = destinasi.nama;
+
+                deskripsiCard.innerHTML = destinasi.deskripsi;
+
+                lokasiCard.innerHTML = `Lokasi = ${destinasi.lokasi}`;
+
+                if (!!destinasi.harga) {
+                    hargaCard.innerHTML = `Info Harga/Tiket: ${destinasi.harga}`;
+                }
+
+                if (!!destinasi.link_resmi) {
+                    linkResmiCard.innerHTML = `Link Resmi <a href="${destinasi.link_resmi}">${$destination.nama}</a>`;
+                }
+
+                $('#modal-info-destinasi').modal('show');
+            }
+        }
+    </script>
 @endpush

@@ -43,9 +43,9 @@ class ProfileController extends Controller
         }
 
         $password = $user->password;
-        if(isset($request->password_lama,$request->password,$request->confirmed_password)){
+        if(isset($request->password_lama,$request->password,$request->password_confirmation)){
             if(!Hash::check($request->password_lama, $password)){
-                Session::flash('invalid_pass','Password anda salah');
+                Session::flash('invalid_pass','Password lama anda salah');
                 return redirect()->back();
             }
             
@@ -55,15 +55,13 @@ class ProfileController extends Controller
             $password = Hash::make($request['password']);
         }
 
-        if (($request->name != $user->name)) {
-            $profile = User::where('id',$id)->update([
-                'username' => $request['username'],
-                'email' => $request['email'],
-                'password' => $password
-            ]);
+        $profile = User::where('id',$id)->update([
+            'username' => $request['username'],
+            'email' => $request['email'],
+            'password' => $password
+        ]);
 
-            Session::flash('success','Berhasil memperbarui profil');
-        }
+        Session::flash('success','Berhasil memperbarui profil');
 
         return redirect('/profile');
         

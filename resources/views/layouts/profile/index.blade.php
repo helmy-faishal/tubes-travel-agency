@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="container p-3">
-        <p>History Booking</p>
+        <p>Riwayat Pemesanan</p>
 
         <div class="container p-3 my-3">
             <table class="table">

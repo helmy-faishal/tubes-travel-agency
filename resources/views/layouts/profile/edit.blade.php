@@ -42,9 +42,15 @@
                 </div>
 
                 <div class="form-group my-2">
-                    <label for="confirmed_password">Konfirmasi Password Baru</label>
-                    <input type="password" class="form-control" name="confirmed_password" id="confirmed_password" placeholder="Masukkan kembali password baru">
+                    <label for="password_confirmation">Konfirmasi Password Baru</label>
+                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Masukkan kembali password baru">
                 </div>
+
+                @if (Session::has('invalid_pass'))
+                    <div class="alert alert-danger my-2" role="alert">
+                        {{Session::get('invalid_pass')}}
+                    </div>
+                @endif
             </div>
 
             <div class="d-flex justify-content-end">
