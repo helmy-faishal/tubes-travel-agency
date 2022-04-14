@@ -222,4 +222,8 @@
 
 @push('scripts')
     <script src="{{asset('MilleniumTravelAgency/PaketWisata/paketWisata.js')}}"></script>
+
+    <script>
+        $('#paket').addClass('this');
+    </script>
 @endpush

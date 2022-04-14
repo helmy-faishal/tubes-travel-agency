@@ -9,6 +9,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Auth;
 use Session;
 use Hash;
+use Alert;
 
 class BookingController extends Controller
 {
@@ -85,6 +86,7 @@ class BookingController extends Controller
         ]);
         
         Session::forget('booking');
+        Alert::success('Berhasil', 'Berhasil melakukan pemesanan');
 
         return redirect('/paket');
     }
@@ -95,7 +97,7 @@ class BookingController extends Controller
         if (isset($booking)) {
             return view('layouts.booking.edit',compact('booking'));
         } else {
-            abort(404);
+            abort(401);
         }
     }
     
@@ -112,9 +114,11 @@ class BookingController extends Controller
             Booking::where('id',$id)->where('user_id',$user->id)->update([
                 'tgl_perjalanan' => $request['tgl_perjalanan']
             ]);
+            Alert::success('Berhasil', 'Berhasil melakukan reschedule');
             return redirect()->route('profile.index');
         }
-        Session::flash('invalid_user','Email atau Password anda salah');
+        // Session::flash('invalid_user','Email atau Password anda salah');
+        Alert::error('Error','Email atau Password anda salah');
         return redirect()->back();
     }
 
@@ -125,6 +129,7 @@ class BookingController extends Controller
     public function destroy($id){
         $user_id = Auth::user()->id;
         $booking = Booking::where('id',$id)->where('user_id',$user_id)->delete();
+        Alert::success('Berhasil', 'Berhasil melakukan pembatalan pemesanan');
         return redirect()->back();
     }
 }

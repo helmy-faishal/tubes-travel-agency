@@ -65,4 +65,8 @@
 
 @push('scripts')
     <script src="{{asset('MilleniumTravelAgency/TravelBlog/travelBlog.js')}}"></script>
+
+    <script>
+        $('#blog').addClass('this');
+    </script>
 @endpush

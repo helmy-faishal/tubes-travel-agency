@@ -8,6 +8,7 @@ use App\Models\Booking;
 use Auth;
 use Session;
 use Hash;
+use Alert;
 
 class ProfileController extends Controller
 {
@@ -18,7 +19,7 @@ class ProfileController extends Controller
     public function index(){
         $id = Auth::user()->id;
         $data['user'] = User::where('id',$id)->first();
-        $data['booking'] = Booking::where('user_id',$id)->get();
+        $data['booking'] = Booking::where('user_id',$id)->orderBy('tgl_perjalanan')->get();
         return view('layouts.profile.index',compact('data'));
     }
     public function edit(){
@@ -45,7 +46,8 @@ class ProfileController extends Controller
         $password = $user->password;
         if(isset($request->password_lama,$request->password,$request->password_confirmation)){
             if(!Hash::check($request->password_lama, $password)){
-                Session::flash('invalid_pass','Password lama anda salah');
+                // Session::flash('invalid_pass','Password lama anda salah');
+                Alert::error('Error', 'Password lama anda salah');
                 return redirect()->back();
             }
             
@@ -61,7 +63,8 @@ class ProfileController extends Controller
             'password' => $password
         ]);
 
-        Session::flash('success','Berhasil memperbarui profil');
+        // Session::flash('success','Berhasil memperbarui profil');
+        Alert::success('Berhasil', 'Berhasil memperbarui profil');
 
         return redirect('/profile');
         

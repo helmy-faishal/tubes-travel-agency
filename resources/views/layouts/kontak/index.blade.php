@@ -48,3 +48,9 @@
       </div>
   </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#kontak').addClass('this');
+    </script>
+@endpush

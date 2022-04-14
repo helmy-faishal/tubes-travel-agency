@@ -208,4 +208,8 @@
             }
         }
     </script>
+
+    <script>
+        $('#beranda').addClass('this');
+    </script>
 @endpush

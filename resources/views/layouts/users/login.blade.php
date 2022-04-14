@@ -34,4 +34,9 @@
 
 @push('scripts')
     <script src="{{asset('MilleniumTravelAgency/Login/login.js')}}"></script>
+
+    <script>
+        $('#masuk').addClass('this');
+    </script>
+
 @endpush

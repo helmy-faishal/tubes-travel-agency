@@ -5,7 +5,7 @@
 @endpush
 
 @section('title')
-    Profile
+    Profil
 @endsection
 
 @section('content')
@@ -93,5 +93,9 @@
         $('.batalkan').click(function(){
             $('.form-batalkan').attr('action',`/paket/hapus/${this.id}`);
         });
+    </script>
+
+    <script>
+        $('#profil').addClass('this');
     </script>
 @endpush

@@ -8,38 +8,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" >
           <ul class="navbar-nav me-2 mb-2 mb-lg-0">
             <li>
-              <a class="nav-link borderA this" href="/">Beranda</a>
+              <a class="nav-link borderA" id="beranda" href="/">Beranda</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link borderA" href="{{route('booking.index')}}">Paket Wisata</a>
+              <a class="nav-link borderA" id="paket" href="{{route('booking.index')}}">Paket Wisata</a>
             </li>
             <li>
-              <a class="nav-link borderA" href="{{route('blog.alam')}}">Travel Blog</a>
+              <a class="nav-link borderA" id="blog" href="{{route('blog.alam')}}">Travel Blog</a>
             </li>
             <li>
-              <a class="nav-link" href="{{route('kontak.index')}}">Kontak</a>
+              <a class="nav-link" id="kontak" href="{{route('kontak.index')}}">Kontak</a>
             </li>
             @if (Auth::check())
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle btn btn-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->name }}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                    <li><a class="dropdown-item" href="/profile/edit">Setting</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                    </ul>
-                </li> --}}
                 <li class="nav-item">
-                  <a href="/profile" class="nav-link">{{Auth::user()->username}}</a>
+                  <a href="/profile" id="profil" class="nav-link">{{Auth::user()->username}}</a>
               </li>
             @else
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('register')}}" style="font-size: 12px; border-right: 1px solid white; padding-right: 30px;">Daftar</a>
+                  <a class="nav-link" id="daftar" href="{{route('register')}}" style="font-size: 12px; border-right: 1px solid white; padding-right: 30px;">Daftar</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('login')}}" style="font-size: 12px; margin-left: 0px;">Masuk</a>
+                  <a class="nav-link" id="masuk" href="{{route('login')}}" style="font-size: 12px; margin-left: 0px;">Masuk</a>
                 </li>
             @endif
         </div>

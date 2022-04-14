@@ -42,4 +42,8 @@
 
 @push('scripts')
     <script src="{{asset('MilleniumTravelAgency\SignUp\daftar.js')}}"></script>
+
+    <script>
+        $('#daftar').addClass('this');
+    </script>
 @endpush

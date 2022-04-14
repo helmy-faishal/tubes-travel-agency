@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-center">
         @if ($booking = Session::get('booking'))
 
-            <div class="card my-5 p-3">
+            <div class="card my-5 p-3 shadow">
                 <h5 class="card-header">Pembayaran</h5>
                 <div class="card-body">
                     <h5 class="card-title">Detail Pemesanan</h5>

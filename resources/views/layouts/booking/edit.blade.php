@@ -14,15 +14,17 @@
             @csrf
             @method('PUT')
             <h3 class="my-2">Reschedule Tanggal Perjalanan</h3>
-            <div class="form-group my-2">
-                <label for="tgl_perjalanan">Tanggal Perjalanan Baru</label>
-                <input type="date" class="form-control" name="tgl_perjalanan" id="tgl_perjalanan" value="{{$booking->tgl_perjalanan}}" min="{{date('Y-m-d')}}" required>
+            <div class="my-3 p-2 border shadow-sm">
+                <div class="form-group my-2">
+                    <label for="tgl_perjalanan">Tanggal Perjalanan Baru</label>
+                    <input type="date" class="form-control" name="tgl_perjalanan" id="tgl_perjalanan" value="{{$booking->tgl_perjalanan}}" min="{{date('Y-m-d')}}" required>
+                </div>
+                @error('tgl_perjalanan')
+                    <div class="alert alert-danger mt-1">{{ $message }}</div>
+                @enderror
             </div>
-            @error('tgl_perjalanan')
-                <div class="alert alert-danger mt-1">{{ $message }}</div>
-            @enderror
 
-            <div class="mt-5 p-2 border border-warning">
+            <div class="my-2 p-2 border border-warning shadow-sm">
                 <h4>Konfirmasi Reschedule</h4>
                 <div class="form-group">
                     <label for="email">Email</label>
