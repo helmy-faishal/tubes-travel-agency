@@ -19,8 +19,14 @@ class ProfileController extends Controller
     public function index(){
         $id = Auth::user()->id;
         $data['user'] = User::where('id',$id)->first();
-        $data['booking'] = Booking::where('user_id',$id)->orderBy('tgl_perjalanan')->get();
-        return view('layouts.profile.index',compact('data'));
+
+        if (Auth::user()->isadmin) {
+            $data['booking'] = Booking::orderBy('tgl_perjalanan')->get();
+            return view('layouts.profile.admin',compact('data'));
+        } else {
+            $data['booking'] = Booking::where('user_id',$id)->orderBy('tgl_perjalanan')->get();
+            return view('layouts.profile.index',compact('data'));
+        }
     }
     public function edit(){
         $id = Auth::user()->id;

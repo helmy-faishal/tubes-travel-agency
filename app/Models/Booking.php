@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\User;
+use App\Models\User;
 
 class Booking extends Model
 {
@@ -13,7 +13,7 @@ class Booking extends Model
     protected $table = "bookings";
     protected $guarded = [];
 
-    public function user(): BelongsTo{
+    public function user(){
         return $this->belongsTo(User::class,"user_id");
     }
 }

@@ -30,6 +30,12 @@ Route::get('/blog/kuliner', 'App\Http\Controllers\BlogController@kuliner')->name
 Route::get('/blog/hotel', 'App\Http\Controllers\BlogController@hotel')->name('blog.hotel');
 Route::get('/blog/hiburan', 'App\Http\Controllers\BlogController@hiburan')->name('blog.hiburan');
 
+// Route::get('/blog/tambah', 'App\Http\Controllers\BlogController@create')->name('blog.create');
+// Route::get('/blog/edit/{id}', 'App\Http\Controllers\BlogController@edit')->name('blog.edit');
+Route::post('/blog/tambah', 'App\Http\Controllers\BlogController@store')->name('blog.store');
+Route::put('/blog/edit/{id}', 'App\Http\Controllers\BlogController@update')->name('blog.update');
+Route::delete('/blog/hapus/{id}', 'App\Http\Controllers\BlogController@destroy')->name('blog.destroy');
+
 Route::get('/profile', 'App\Http\Controllers\ProfileController@index')->name('profile.index');
 Route::get('/profile/edit', 'App\Http\Controllers\ProfileController@edit')->name('profile.edit');
 Route::put('/profile', 'App\Http\Controllers\ProfileController@update')->name('profile.update');

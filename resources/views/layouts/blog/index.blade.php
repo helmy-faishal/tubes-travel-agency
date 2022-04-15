@@ -1,13 +1,17 @@
-@extends('layouts.base')
-
-@push('styles')
-    <link href="{{asset('MilleniumTravelAgency/TravelBlog/travelBlog.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-@endpush
+@extends('layouts.blog.base')
 
 @section('title')
     Blog - {{$blog}}
 @endsection
+
+@push('styles')
+    <style>
+        .img-preview{
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+@endpush
 
 @section('content')
 <div id="main">
@@ -23,20 +27,25 @@
         @endphp
         <ul class="contain">
             @foreach ($menu as $kategori => $route)
-                @if ($kategori == $blog)
-                    <li>
-                        <a href="{{route($route)}}" class="item this">{{$kategori}}</a>
-                    </li>
-                @else
-                    <li>
-                        <a href="{{route($route)}}" class="item">{{$kategori}}</a>
-                    </li>
-                @endif
+            @if ($kategori == $blog)
+            <li>
+                <a href="{{route($route)}}" class="item this">{{$kategori}}</a>
+            </li>
+            @else
+            <li>
+                <a href="{{route($route)}}" class="item">{{$kategori}}</a>
+            </li>
+            @endif
             @endforeach
         </ul>
     </nav>
-    </div>
-    <div class="container">
+</div>
+<div class="container">
+        @if (Auth::check())
+            @if (Auth::user()->isadmin)
+                <button class="btn btn-primary btn-sm w-25" id="tambahDestinasi" style="margin-top: -40px">Tambah Destinasi</button>
+            @endif
+        @endif
         @foreach ($data as $destination)
             <div class="box-item">
                 <div class="left-item">
@@ -45,7 +54,7 @@
                 <div class="right-item">
                     <h3>{{$destination->nama}}</h3>
                     <p class="text-break">{{$destination->deskripsi}}</p>
-                    <p>{{$destination->lokasi}}</p>
+                    <p>Lokasi: {{$destination->lokasi}}</p>
                     @isset($destination->harga)
                         <p>Info Harga/Tiket: {{$destination->harga}}</p>
                     @endisset
@@ -53,6 +62,15 @@
                     @isset($destination->link_resmi)
                         <p>Link Resmi: <a href="{{$destination->link_resmi}}">{{$destination->nama}}</a></p>
                     @endisset
+
+                    @if (Auth::check())
+                        @if (Auth::user()->isadmin)
+                            <div class="d-flex justify-content-end">
+                                <a id="{{$destination->nama}}" class="btn btn-warning btn-sm ubahDestinasi update" role="button">Ubah</a>
+                                <a id="{{$destination->id}}" class="btn btn-danger btn-sm hapusDestinasi" role="button">Hapus</a>
+                            </div>
+                        @endif
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -61,12 +79,164 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-destinasi">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="container">
+                <h3 id="header-modal">Tambah Destinasi</h3>
+                <hr>
+                <form action="{{route('blog.store')}}" method="post" class="p-1" id="destinasiForm" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+                    <div class="mb-4">
+                        <label for="nama" class="form-label">Nama Destinasi</label>
+                        <input type="text" class="form-control " id="nama" name="nama" required>
+                    </div>
+            
+                    <div class="mb-4">
+                        <label for="gambar" class="form-label">Gambar Destinasi</label>
+                        <input type="file" class="form-control " id="gambar" name="gambar" required onchange="previewGambar()">
+                    </div>
+            
+                    <div class="d-flex justify-content-center mb-4">
+                        <img class="img-preview d-block">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="kategori" class="form-label">Kategori Destinasi</label>
+                        <select class="form-select" id="kategori" name="kategori" required>
+                            <option value="Wisata Alam">Wisata Alam</option>
+                            <option value="Kuliner">Kuliner</option>
+                            <option value="Hotel">Hotel</option>
+                            <option value="Hiburan">Hiburan</option>
+                        </select>
+                    </div>
+            
+                    <div class="mb-4">
+                        <label for="deskripsi" class="form-label">Deskripsi Destinasi</label>
+                        <textarea class="form-control " id="deskripsi" name="deskripsi" rows="3" required></textarea>
+                    </div>
+            
+                    <div class="mb-4">
+                        <label for="lokasi" class="form-label">Lokasi Destinasi</label>
+                        <input type="text" class="form-control " id="lokasi" name="lokasi" required>
+                    </div>
+            
+                    <div class="mb-4">
+                        <label for="harga" class="form-label">Info Harga atau Tiket Masuk</label>
+                        <input type="text" class="form-control " id="harga" name="harga">
+                    </div>
+            
+                    <div class="mb-4">
+                        <label for="link_resmi" class="form-label">Link resmi</label>
+                        <input type="text" class="form-control " id="link_resmi" name="link_resmi">
+                    </div>
+            
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" value="Tambah" class="btn btn-primary" id="submit">
+                    </div>
+            
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="konfirmasi-hapus" tabindex="-1" role="dialog" aria-labelledby="konfirmasiLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="konfirmasiLabel">Konfirmasi Hapus Destinasi</h5>
+        </div>
+        <div class="modal-body">
+            <P>Apakah anda yakin ingin menghapus destinasi?</P>
+            <div class="d-flex justify-content-center">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <form class="form-hapus" action="" method="post">
+                @csrf
+                @method('DELETE')
+                <input type="submit" value="Konfirmasi" class="btn btn-danger">
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
-    <script src="{{asset('MilleniumTravelAgency/TravelBlog/travelBlog.js')}}"></script>
+<script>
+    function previewGambar() {
+        const gambar = document.querySelector('#gambar');
+        const imgPreview = document.querySelector('.img-preview');
 
-    <script>
-        $('#blog').addClass('this');
-    </script>
+        const FReader = new FileReader();
+        FReader.readAsDataURL(gambar.files[0]);
+        FReader.onload = function(FREvent){
+            imgPreview.src = FREvent.target.result;
+        }
+    }
+
+    $('#tambahDestinasi').click(function(){
+        showModal(this);
+    });
+    
+    $('.ubahDestinasi').click(function(){
+        showModal(this);
+    });
+
+    $('.hapusDestinasi').click(function(){
+        $('.form-hapus').attr('action',`/blog/hapus/${this.id}`);
+        $('#konfirmasi-hapus').modal('show');
+    });
+
+    function showModal(element){
+        //Reset form modal
+        document.getElementById('destinasiForm').reset();
+        $('#destinasiForm').attr('action','/blog/tambah');
+        $('#gambar').attr('required');
+        $("input[name='_method']").val('POST');
+        document.getElementById('header-modal').innerHTML = "Tambah Destinasi";
+        document.getElementById('submit').value = "Tambah";
+        $('.img-preview').removeAttr('src');
+
+        if (element.classList.contains('update')) {
+            document.getElementById('header-modal').innerHTML = "Edit Destinasi";
+            document.getElementById('submit').value = "Edit";
+            $("input[name='_method']").val('PUT');
+            $('#gambar').removeAttr('required');
+
+            $.ajax('/api/blog/cari',{
+                data:{'kata_kunci':element.id},
+                success: setForm
+            })
+        }
+        $('#modal-destinasi').modal('show');
+    }
+
+    function setForm(data){
+        if (data?.data.length != 0) {
+            let destinasi = data?.data[0];
+
+            $('#destinasiForm').attr('action',`/blog/edit/${destinasi.id}`);
+            
+            $('#nama').val(destinasi.nama);
+
+            $('.img-preview').attr('src',`/${destinasi.gambar}`);
+
+            $('#kategori').val(destinasi.kategori);
+
+            $('#deskripsi').val(destinasi.deskripsi);
+
+            $('#lokasi').val(destinasi.lokasi);
+
+            $('#harga').val(destinasi.harga);
+
+            $('#link_resmi').val(destinasi.link_resmi);
+        }
+    }
+
+</script>
 @endpush
