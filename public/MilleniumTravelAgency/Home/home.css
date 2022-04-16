@@ -23,7 +23,7 @@ section#navigasi a:hover{
 }
 section#header1 .bgImg {
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("home.jpg");
-  
+
     /* Position and center the image to scale nicely on all screens */
     background-position: center;
     background-repeat: no-repeat;
@@ -71,20 +71,20 @@ section#konten1{
     display: flex;
     padding-bottom: 100px;
 }
-section.konten div{   
+section.konten div{
     height: 700px;
     width: 600px;
     font-family: 'PT Serif', serif;
     overflow: visible;
 }
-section.konten div h1{   
+section.konten div h1{
     padding-top: 50px;
     margin-left: 10%;
     font-size: 60px;
     border-bottom: 1px solid black ;
     color: brown;
 }
-section.konten div p{   
+section.konten div p{
     padding-top: 40px;
     margin-left: 10%;
     font-size: 20px;
@@ -112,17 +112,17 @@ section#konten2 div img{
     margin-right: 3%;
 }
 
-section#konten3{ 
+section#konten3{
     font-family: 'PT Serif', serif;
     overflow: hidden;
     padding-top: 150px;
     width: auto;
 }
-section#konten3 div{ 
+section#konten3 div{
     margin-bottom: 5px;
     height: 500px;
 }
-section#konten3 div.imageKonten{ 
+section#konten3 div.imageKonten{
     height: 500px;
     width: auto;
     display: flex;
@@ -132,7 +132,7 @@ section#konten3 div.imageKonten{
     border-radius: 10px;
 }
 
-section#konten3 h1{ 
+section#konten3 h1{
     padding-top: 100px;
     margin: 0px;
     margin-left: 10%;
@@ -179,14 +179,14 @@ section#konten3 div.arrow{
     cursor: pointer;
     margin: 5px;
   }
-  
+
   .button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
-  
+
   .button span:after {
     content: '\00bb';
     position: absolute;
@@ -195,11 +195,11 @@ section#konten3 div.arrow{
     right: -20px;
     transition: 0.5s;
   }
-  
+
   .button:hover span {
     padding-right: 25px;
   }
-  
+
   .button:hover span:after {
     opacity: 1;
     right: 0;
@@ -365,7 +365,7 @@ section#konten5 div.inline div{
     width: 300px;
     margin-left: 5%;
     margin-right: 5%;
-    
+
 }
 section#konten5 div.judul{
     margin-top: 200px;
@@ -392,7 +392,7 @@ section#konten5 img{
     height: 400px;
     object-fit: cover;
     border-radius: 30px;
-    
+
 }
 section#konten5 .arrow_box {
 	position: relative;
@@ -444,7 +444,7 @@ section#bottom {
     font-family: 'PT Serif', serif;
     overflow: hidden;
     width: auto;
-      
+
 }
 section#bottom div{
     width: 100%;

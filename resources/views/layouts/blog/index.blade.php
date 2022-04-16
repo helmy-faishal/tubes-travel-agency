@@ -10,6 +10,30 @@
             max-width: 100%;
             height: auto;
         }
+        #tambahDestinasi{
+            margin-top: -30px;
+            width: 150px;
+            background-color: blue;
+            height: 40px;
+            color: white;
+            border-radius: 10px;
+            border: 0px;
+            margin-left: 10px;
+        }
+
+        button#tambahDestinasi:hover{
+            background-color:  orangered;
+            text-decoration: solid;
+        }
+        div.button{
+            margin-left: 80%;
+            margin-top: -40px;
+        }
+        a.btn:hover{
+            background-color:  blue;
+            color: white;
+            text-decoration: solid;
+        }
     </style>
 @endpush
 
@@ -43,7 +67,7 @@
 <div class="container">
         @if (Auth::check())
             @if (Auth::user()->isadmin)
-                <button class="btn btn-primary btn-sm w-25" id="tambahDestinasi" style="margin-top: -40px">Tambah Destinasi</button>
+                <button id="tambahDestinasi">Tambah Destinasi</button>
             @endif
         @endif
         @foreach ($data as $destination)
@@ -65,7 +89,7 @@
 
                     @if (Auth::check())
                         @if (Auth::user()->isadmin)
-                            <div class="d-flex justify-content-end">
+                            <div class="button">
                                 <a id="{{$destination->nama}}" class="btn btn-warning btn-sm ubahDestinasi update" role="button">Ubah</a>
                                 <a id="{{$destination->id}}" class="btn btn-danger btn-sm hapusDestinasi" role="button">Hapus</a>
                             </div>
@@ -93,16 +117,16 @@
                         <label for="nama" class="form-label">Nama Destinasi</label>
                         <input type="text" class="form-control " id="nama" name="nama" required>
                     </div>
-            
+
                     <div class="mb-4">
                         <label for="gambar" class="form-label">Gambar Destinasi</label>
                         <input type="file" class="form-control " id="gambar" name="gambar" required onchange="previewGambar()">
                     </div>
-            
+
                     <div class="d-flex justify-content-center mb-4">
                         <img class="img-preview d-block">
                     </div>
-                    
+
                     <div class="mb-4">
                         <label for="kategori" class="form-label">Kategori Destinasi</label>
                         <select class="form-select" id="kategori" name="kategori" required>
@@ -112,31 +136,31 @@
                             <option value="Hiburan">Hiburan</option>
                         </select>
                     </div>
-            
+
                     <div class="mb-4">
                         <label for="deskripsi" class="form-label">Deskripsi Destinasi</label>
                         <textarea class="form-control " id="deskripsi" name="deskripsi" rows="3" required></textarea>
                     </div>
-            
+
                     <div class="mb-4">
                         <label for="lokasi" class="form-label">Lokasi Destinasi</label>
                         <input type="text" class="form-control " id="lokasi" name="lokasi" required>
                     </div>
-            
+
                     <div class="mb-4">
                         <label for="harga" class="form-label">Info Harga atau Tiket Masuk</label>
                         <input type="text" class="form-control " id="harga" name="harga">
                     </div>
-            
+
                     <div class="mb-4">
                         <label for="link_resmi" class="form-label">Link resmi</label>
                         <input type="text" class="form-control " id="link_resmi" name="link_resmi">
                     </div>
-            
+
                     <div class="d-flex justify-content-end">
                         <input type="submit" value="Tambah" class="btn btn-primary" id="submit">
                     </div>
-            
+
                 </form>
             </div>
         </div>
@@ -182,7 +206,7 @@
     $('#tambahDestinasi').click(function(){
         showModal(this);
     });
-    
+
     $('.ubahDestinasi').click(function(){
         showModal(this);
     });
@@ -221,7 +245,7 @@
             let destinasi = data?.data[0];
 
             $('#destinasiForm').attr('action',`/blog/edit/${destinasi.id}`);
-            
+
             $('#nama').val(destinasi.nama);
 
             $('.img-preview').attr('src',`/${destinasi.gambar}`);
