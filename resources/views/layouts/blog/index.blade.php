@@ -87,9 +87,10 @@
                         <p>Link Resmi: <a href="{{$destination->link_resmi}}">{{$destination->nama}}</a></p>
                     @endisset
 
+                    <br>
                     @if (Auth::check())
                         @if (Auth::user()->isadmin)
-                            <div class="button">
+                            <div class="button mb-2">
                                 <a id="{{$destination->nama}}" class="btn btn-warning btn-sm ubahDestinasi update" role="button">Ubah</a>
                                 <a id="{{$destination->id}}" class="btn btn-danger btn-sm hapusDestinasi" role="button">Hapus</a>
                             </div>
@@ -99,7 +100,7 @@
             </div>
         @endforeach
         <div class="d-flex justify-content-end">
-            {!!$data->links()!!}
+            {!!$data->links('vendor.pagination.custom-simple')!!}
         </div>
     </div>
 </div>
@@ -115,7 +116,7 @@
                     @method('POST')
                     <div class="mb-4">
                         <label for="nama" class="form-label">Nama Destinasi</label>
-                        <input type="text" class="form-control " id="nama" name="nama" required>
+                        <input type="text" class="form-control " id="nama" name="nama" required placeholder="Masukkan nama destinasi">
                     </div>
 
                     <div class="mb-4">
@@ -139,22 +140,22 @@
 
                     <div class="mb-4">
                         <label for="deskripsi" class="form-label">Deskripsi Destinasi</label>
-                        <textarea class="form-control " id="deskripsi" name="deskripsi" rows="3" required></textarea>
+                        <textarea class="form-control " id="deskripsi" name="deskripsi" rows="3" required placeholder="Masukkan deskripsi destinasi"></textarea>
                     </div>
 
                     <div class="mb-4">
                         <label for="lokasi" class="form-label">Lokasi Destinasi</label>
-                        <input type="text" class="form-control " id="lokasi" name="lokasi" required>
+                        <input type="text" class="form-control " id="lokasi" name="lokasi" required placeholder="Contoh: Dieng">
                     </div>
 
                     <div class="mb-4">
-                        <label for="harga" class="form-label">Info Harga atau Tiket Masuk</label>
-                        <input type="text" class="form-control " id="harga" name="harga">
+                        <label for="harga" class="form-label">Info Harga atau Tiket Masuk <span>(opsional)</span></label>
+                        <input type="text" class="form-control " id="harga" name="harga" placeholder="Contoh: Gratis atau Rp10000/orang atau Rp5000/porsi">
                     </div>
 
                     <div class="mb-4">
-                        <label for="link_resmi" class="form-label">Link resmi</label>
-                        <input type="text" class="form-control " id="link_resmi" name="link_resmi">
+                        <label for="link_resmi" class="form-label">Link resmi <span>(opsional)</span></label>
+                        <input type="text" class="form-control " id="link_resmi" name="link_resmi" placeholder="Contoh: www.banjarnegara.com">
                     </div>
 
                     <div class="d-flex justify-content-end">

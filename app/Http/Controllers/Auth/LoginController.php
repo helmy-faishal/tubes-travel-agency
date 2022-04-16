@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Alert;
 
 class LoginController extends Controller
 {
@@ -47,5 +48,24 @@ class LoginController extends Controller
 
     public function showLoginForm(){
         return view('layouts.users.login');
+    }
+
+    public function login(Request $request){
+        $request->validate([
+            'email' => ['required','string','email'],
+            'password' => ['required','string'],
+        ]);
+        
+        Auth::attempt([
+            'email' => $request['email'],
+            'password' => $request['password']
+        ]);
+        
+        if (Auth::check()){
+            return redirect('/');
+        } else {
+            Alert::error('Error','Email atau Password yang anda masukkan salah atau Akun belum terdaftar');
+            return redirect()->back();
+        }
     }
 }
