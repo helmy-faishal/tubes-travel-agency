@@ -91,7 +91,7 @@
                     @if (Auth::check())
                         @if (Auth::user()->isadmin)
                             <div class="button mb-2">
-                                <a id="{{$destination->nama}}" class="btn btn-warning btn-sm ubahDestinasi update" role="button">Ubah</a>
+                                <a id="{{$destination->id}}" class="btn btn-warning btn-sm ubahDestinasi update" role="button">Ubah</a>
                                 <a id="{{$destination->id}}" class="btn btn-danger btn-sm hapusDestinasi" role="button">Hapus</a>
                             </div>
                         @endif
@@ -234,7 +234,7 @@
             $('#gambar').removeAttr('required');
 
             $.ajax('/api/blog/cari',{
-                data:{'kata_kunci':element.id},
+                data:{'id_destinasi':element.id},
                 success: setForm
             })
         }

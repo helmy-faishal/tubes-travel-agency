@@ -41,8 +41,7 @@ class DestinationController extends Controller
     }
 
     public function cari(Request $request){
-        $request->only(['kata_kunci']);
-        $data = Destination::where('nama','LIKE','%'.$request['kata_kunci'].'%')->get();
+        $data = Destination::where('id',$request['id_destinasi'])->get();
         return response()->json([
             'status' => 'success',
             'data' => $data
