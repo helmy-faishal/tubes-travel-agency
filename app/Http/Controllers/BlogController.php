@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Destination;
-use Auth;
-use Storage;
-use Alert;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
 {

@@ -18,6 +18,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/logout', 'App\Http\Controllers\API\AuthController@logout');
+});
+
+Route::post('/login', 'App\Http\Controllers\API\AuthController@login');
+Route::post('/register', 'App\Http\Controllers\API\AuthController@register');
+
 Route::get('/blog/alam', 'App\Http\Controllers\API\DestinationController@alam')->name('api.blog.alam');
 Route::get('/blog/kuliner', 'App\Http\Controllers\API\DestinationController@kuliner')->name('api.blog.kuliner');
 Route::get('/blog/hotel', 'App\Http\Controllers\API\DestinationController@hotel')->name('api.blog.hotel');
