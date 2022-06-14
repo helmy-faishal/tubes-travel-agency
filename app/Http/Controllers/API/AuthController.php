@@ -57,9 +57,21 @@ class AuthController extends Controller
             'isadmin' => $isAdmin
         ]);
 
+        $user = User::where('email',$request['email'])->first();
+
+        $access_token = $user->createToken('token')->plainTextToken;
+
         return response()->json([
             "status" => "success",
-            'message' => 'Berhasil Registrasi'
+            'message' => 'Berhasil Registrasi',
+            'data' => [
+                'id' => $user->id,
+                'username' => $user->username,
+                'email' => $user->email,
+                'admin' => $user->isadmin,
+                'token_type' => 'Bearer',
+                'access_token' => $access_token,
+            ]
         ], 201);
     }
     
@@ -73,12 +85,13 @@ class AuthController extends Controller
             return response()->json([
                 "status" => "success",
                 'message' => 'Berhasil Login',
-                'token_type' => 'Bearer',
-                'access_token' => $token,
-                'user' => [
+                'data' => [
+                    'id' => $request->user()->id,
                     'username' => $request->user()->username,
                     'email' => $request->user()->email,
                     'admin' => $request->user()->isadmin,
+                    'token_type' => 'Bearer',
+                    'access_token' => $token,
                 ],
             ], 200);
 

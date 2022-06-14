@@ -22,6 +22,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/logout', 'App\Http\Controllers\API\AuthController@logout');
 });
 
+Route::middleware(['auth:sanctum'])->group(function (){
+    Route::get('/booking/all', 'App\Http\Controllers\API\BookingController@all');
+    Route::post('/booking/store','App\Http\Controllers\API\BookingController@store');
+});
+
 Route::post('/login', 'App\Http\Controllers\API\AuthController@login');
 Route::post('/register', 'App\Http\Controllers\API\AuthController@register');
 
