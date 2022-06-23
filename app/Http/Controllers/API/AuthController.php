@@ -113,4 +113,66 @@ class AuthController extends Controller
             'message' => 'Berhasil Logout'
         ], 200);
     }
+
+    public function update(Request $request)
+    {
+        $user = $request->user();
+        $accepted_body = $request->only(['username','email']);
+        $validator = Validator::make(
+            $accepted_body,
+            [
+                'username' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+            ],
+            [
+                'username.required' => 'Username harus diisi',
+                'email.required' => 'Email harus diisi',
+                'username.max' => 'Maksimal huruf adalah 255',
+                'email.max' => 'Maksimal huruf adalah 255',
+                'email.unique' => 'Email ini telah terdaftar, silahkan login atau gunakan email lain',
+            ]
+
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => "fail",
+                "message" => "Gagal Registrasi",
+                "error" => $validator->errors(),
+            ], 500);
+        }
+
+        if ($request['email'] != $user->email) {
+            $email_validator = Validator::make(
+                $accepted_body,
+                [
+                    'email' => ['unique:users'],
+                ],
+                [
+                    'email.unique' => 'Email ini telah terdaftar, silahkan login atau gunakan email lain',
+                ]
+            );
+
+            if ($email_validator->fails()) {
+                return response()->json([
+                    "status" => "fail",
+                    "message" => "Gagal Registrasi",
+                    "error" => $email_validator->errors(),
+                ], 500);
+            }
+        }
+
+        $user->username = $request['username'];
+        $user->email = $request['email'];
+        $user->save();
+
+        return response()->json([
+            "status" => "success",
+            'message' => 'Berhasil mengubah profil',
+            'data' => [
+                'username' => $user->username,
+                'email' => $user->email,
+            ],
+        ], 200);
+    }
 }

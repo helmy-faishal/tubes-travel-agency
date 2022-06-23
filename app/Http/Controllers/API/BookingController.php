@@ -11,7 +11,7 @@ class BookingController extends Controller
     public function all(Request $request){
         $user = $request->user();
 
-        $booking = Booking::where('user_id',$user->id)->get();
+        $booking = Booking::where('user_id',$user->id)->orderBy('tglperjalanan')->get();
 
         return response()->json([
             "status" => "success",

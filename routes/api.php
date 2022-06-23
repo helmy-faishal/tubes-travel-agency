@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/logout', 'App\Http\Controllers\API\AuthController@logout');
+    Route::post('/profile/update', 'App\Http\Controllers\API\AuthController@update');
 });
 
 Route::middleware(['auth:sanctum'])->group(function (){
