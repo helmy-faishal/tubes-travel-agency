@@ -11,7 +11,7 @@ class BookingController extends Controller
     public function all(Request $request){
         $user = $request->user();
 
-        $booking = Booking::where('user_id',$user->id)->orderBy('tglperjalanan')->get();
+        $booking = Booking::where('user_id',$user->id)->orderBy('tgl_perjalanan')->get();
 
         return response()->json([
             "status" => "success",
@@ -35,8 +35,38 @@ class BookingController extends Controller
         
         return response()->json([
             "status" => "success",
-            'message' => 'Berhasil Login',
+            'message' => 'Berhasil Booking',
             'data' => $booking,
         ], 201);
+    }
+
+    public function reschedule(Request $request)
+    {
+        $id = $request->user()->id;
+
+        $booking = Booking::where('user_id',$id)->where('invoice',$request['invoice'])->first();
+        $booking->tgl_perjalanan = $request['tgl_perjalanan'];
+        $booking->save();
+        
+        return response()->json([
+            "status" => "success",
+            'message' => 'Berhasil Reschedule',
+            'data' => [
+                'tgl_perjalanan' => $booking->tgl_perjalanan,
+            ]
+        ], 200);
+    }
+
+    public function destroy(Request $request)
+    {
+        $id = $request->user()->id;
+
+        $booking = Booking::where('user_id',$id)->where('invoice',$request['invoice'])->delete();
+
+        return response()->json([
+            "status" => "success",
+            'message' => 'Berhasil Melakukan Pembatalan',
+        ], 200);
+        
     }
 }

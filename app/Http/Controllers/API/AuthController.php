@@ -117,53 +117,52 @@ class AuthController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
-        $accepted_body = $request->only(['username','email']);
+        $accepted_body = $request->only(['username','password_baru','password_lama']);
         $validator = Validator::make(
             $accepted_body,
-            [
-                'username' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255'],
-            ],
+            ['username' => ['required', 'string', 'max:255'],],
             [
                 'username.required' => 'Username harus diisi',
-                'email.required' => 'Email harus diisi',
                 'username.max' => 'Maksimal huruf adalah 255',
-                'email.max' => 'Maksimal huruf adalah 255',
-                'email.unique' => 'Email ini telah terdaftar, silahkan login atau gunakan email lain',
             ]
-
         );
 
         if ($validator->fails()) {
             return response()->json([
                 "status" => "fail",
-                "message" => "Gagal Registrasi",
+                "message" => "Gagal Mengubah Profil",
                 "error" => $validator->errors(),
             ], 500);
         }
+        
+        $user->username = $request['username'];
 
-        if ($request['email'] != $user->email) {
-            $email_validator = Validator::make(
-                $accepted_body,
-                [
-                    'email' => ['unique:users'],
-                ],
-                [
-                    'email.unique' => 'Email ini telah terdaftar, silahkan login atau gunakan email lain',
-                ]
-            );
-
-            if ($email_validator->fails()) {
+        if ($accepted_body['password_lama']!="") {
+            if (Hash::check($accepted_body['password_lama'], $user->password)) {
                 return response()->json([
                     "status" => "fail",
-                    "message" => "Gagal Registrasi",
-                    "error" => $email_validator->errors(),
+                    "message" => "Password Lama Salah",
+                    "error" => $validator->errors(),
                 ], 500);
             }
+
+            $validator = Validator::make(
+                $accepted_body,
+                ['password_baru' => ['string','min:8'],],
+                ['password_baru.min' => 'Password minimal 8 huruf']
+            );
+
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "fail",
+                    "message" => "Gagal Mengubah Profil",
+                    "error" => $validator->errors(),
+                ], 500);
+            }
+
+            $user->password = Hash::make($request['password_baru']);
         }
 
-        $user->username = $request['username'];
-        $user->email = $request['email'];
         $user->save();
 
         return response()->json([
@@ -171,7 +170,6 @@ class AuthController extends Controller
             'message' => 'Berhasil mengubah profil',
             'data' => [
                 'username' => $user->username,
-                'email' => $user->email,
             ],
         ], 200);
     }

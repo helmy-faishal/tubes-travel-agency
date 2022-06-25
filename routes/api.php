@@ -26,6 +26,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/booking/all', 'App\Http\Controllers\API\BookingController@all');
     Route::post('/booking/store','App\Http\Controllers\API\BookingController@store');
+    Route::post('/booking/reschedule','App\Http\Controllers\API\BookingController@reschedule');
+    Route::delete('/booking/delete','App\Http\Controllers\API\BookingController@destroy');
 });
 
 Route::post('/login', 'App\Http\Controllers\API\AuthController@login');
